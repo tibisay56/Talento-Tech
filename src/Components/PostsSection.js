@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../Services/api';
+import '../styles.css';
 
 const PostsSection = () => {
   const [posts, setPosts] = useState([]);
@@ -57,7 +58,7 @@ const PostsSection = () => {
   };
 
   return (
-    <section>
+    <section className='posts-section'>
       <h2>Posts</h2>
 
       {/* Create New Post */}
