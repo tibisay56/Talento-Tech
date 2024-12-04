@@ -7,6 +7,7 @@ import api from '../Services/api';
 
 const CommentSection = () => {
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState(""); 
   const [editComment, setEditComment] = useState(null);
   const navigate = useNavigate(); 
 
@@ -39,6 +40,23 @@ const CommentSection = () => {
       console.error('Error deleting comment', error);
     }
   };
+
+  const handleInputChange = (e) => {
+    setNewComment(e.target.value);
+  };
+
+    // Add comment handler
+    const handleAddComment = async () => {
+      if (newComment.trim()) {
+        try {
+          const response = await api.post('/comments', { text: newComment });
+          setComments([...comments, response.data]);
+          setNewComment(""); // Clear input after adding
+        } catch (error) {
+          console.error('Error adding comment', error);
+        }
+      }
+    };
 
   return (
     <div className='comment-section'>
@@ -107,7 +125,7 @@ const CommentSection = () => {
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 };
 
