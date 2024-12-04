@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav className="bg-blue-600 shadow-lg">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 className="text-3xl text-white font-bold">EmprendeTuFuturo</h1>
+        <h1 className="text-3xl text-white font-bold">EmprendeNet</h1>
         <div>
           <Link
             to="/"

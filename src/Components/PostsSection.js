@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa'; // Íconos
 import api from '../Services/api';
 import '../styles.css';
 
 const PostsSection = () => {
   const [posts, setPosts] = useState([]);
-  const [newPost, setNewPost] = useState({ title: '', content: '' });
-  const [editPost, setEditPost] = useState(null); // For editing a post
+  const [editPost, setEditPost] = useState(null);
+  const navigate = useNavigate(); 
 
-  // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -17,95 +18,78 @@ const PostsSection = () => {
         console.error('Error fetching posts', error);
       }
     };
-
     fetchPosts();
   }, []);
 
-  // Create new post
-  const handleCreatePost = async () => {
-    try {
-      const response = await api.post('/posts', newPost);
-      setPosts([...posts, response.data]); // Add new post to state
-      setNewPost({ title: '', content: '' }); // Reset the newPost input fields
-    } catch (error) {
-      console.error('Error creating post', error);
-    }
+  // Handlers
+  const handleCreateRedirect = () => {
+    navigate('/dashboard/posts/create');
   };
 
-  // Handle editing a post
   const handleEditPost = (post) => {
-    setEditPost(post);
+    setEditPost(post); 
   };
 
-  const handleUpdatePost = async () => {
-    try {
-      const response = await api.put(`/posts/${editPost.id}`, editPost);
-      setPosts(posts.map(post => (post.id === editPost.id ? response.data : post)));
-      setEditPost(null); // Reset after updating
-    } catch (error) {
-      console.error('Error updating post', error);
-    }
-  };
-
-  // Delete post
   const handleDeletePost = async (postId) => {
     try {
       await api.delete(`/posts/${postId}`);
-      setPosts(posts.filter(post => post.id !== postId)); // Remove deleted post from state
+      setPosts(posts.filter(post => post.id !== postId));
     } catch (error) {
       console.error('Error deleting post', error);
     }
   };
 
   return (
-    <section className='posts-section'>
-      <h2>Posts</h2>
-
-      {/* Create New Post */}
-      <div>
-        <h3>Create a New Post</h3>
-        <input
-          type="text"
-          placeholder="Title"
-          value={newPost.title}
-          onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-        />
-        <textarea
-          placeholder="Content"
-          value={newPost.content}
-          onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-        />
-        <button onClick={handleCreatePost}>Create Post</button>
+    <section className="posts-section">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Posts</h2>
+        <button
+          onClick={handleCreateRedirect}
+          className="bg-blue-600 text-white px-4 py-2 rounded flex items-center"
+        >
+          <FaPlus className="mr-2" /> Crear Post
+        </button>
       </div>
 
-      {/* Update Post */}
-      {editPost && (
-        <div>
-          <h3>Edit Post</h3>
-          <input
-            type="text"
-            value={editPost.title}
-            onChange={(e) => setEditPost({ ...editPost, title: e.target.value })}
-          />
-          <textarea
-            value={editPost.content}
-            onChange={(e) => setEditPost({ ...editPost, content: e.target.value })}
-          />
-          <button onClick={handleUpdatePost}>Update Post</button>
-        </div>
-      )}
-
-      {/* Display Posts */}
-      <ul>
-        {posts.map(post => (
-          <li key={post.id}>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-            <button onClick={() => handleEditPost(post)}>Edit</button>
-            <button onClick={() => handleDeletePost(post.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+      <table className="table-auto w-full border-collapse border border-gray-300">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border border-gray-300 px-4 py-2">Título</th>
+            <th className="border border-gray-300 px-4 py-2">Contenido</th>
+            <th className="border border-gray-300 px-4 py-2">Estado</th>
+            <th className="border border-gray-300 px-4 py-2">Tipo</th>
+            <th className="border border-gray-300 px-4 py-2">Autor</th>
+            <th className="border border-gray-300 px-4 py-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.map(post => (
+            <tr key={post.id}>
+              <td className="border border-gray-300 px-4 py-2">{post.title}</td>
+              <td className="border border-gray-300 px-4 py-2">{post.content}</td>
+              <td className="border border-gray-300 px-4 py-2">{post.status}</td>
+              <td className="border border-gray-300 px-4 py-2">{post.type}</td>
+              <td className="border border-gray-300 px-4 py-2">{post.author}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => handleEditPost(post)}
+                    className="text-yellow-500 hover:text-yellow-700"
+                  >
+                    <FaEdit />
+                  </button>
+                  <button
+                    onClick={() => handleDeletePost(post.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   );
 };
