@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import '../Comentarios.css'
 import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa'; 
 import api from '../Services/api';
-import '../styles.css';
 
 const CommentSection = () => {
   const [comments, setComments] = useState([]);
@@ -40,15 +41,31 @@ const CommentSection = () => {
   };
 
   return (
-    <section className="comments-section">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Comments</h2>
-        <button
-          onClick={handleCreateRedirect}
-          className="bg-blue-600 text-white px-4 py-2 rounded flex items-center"
-        >
-          <FaPlus className="mr-2" /> Crear Comment
-        </button>
+    <div className='comment-section'>
+      <h2>Comentarios</h2>
+      <div>
+        {comments.length === 0 ? (
+          <p>No hay comentarios aún.</p>
+        ) : (
+          <ul className='comment-list'>
+            {comments.map((comment) => (
+              <li key={comment.id}>
+                <span className='comment-author'>{comment.author}</span>
+                <span className='comment-text'>{comment.text}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      
+      <div className='comment-input'>
+        <textarea 
+          value={newComment}
+          onChange={handleInputChange}
+          placeholder="Escribe tu comentario"
+        />
+        <button onClick={handleAddComment}>Agregar comentario</button>
+
       </div>
 
       <table className="table-auto w-full border-collapse border border-gray-300">

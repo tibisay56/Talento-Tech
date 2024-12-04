@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../Services/api';
+import '../Roles.css';
 
 const RolesSection = () => {
   const [roles, setRoles] = useState([]);
@@ -57,7 +58,7 @@ const RolesSection = () => {
   };
 
   return (
-    <section>
+    <section className='roles-section'>
       <h2>Roles</h2>
 
       {/* Create New Role */}
