@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../Services/api';
+import '../UsersSection.css'; // Asegúrate de importar el archivo CSS
 
 const UsersSection = () => {
   const [users, setUsers] = useState([]);
@@ -57,7 +58,7 @@ const UsersSection = () => {
   };
 
   return (
-    <section>
+    <section className="users-section">
       <h2>Usuarios</h2>
 
       {/* Create New User */}
