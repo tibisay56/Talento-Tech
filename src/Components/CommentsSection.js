@@ -85,46 +85,6 @@ const CommentSection = () => {
         <button onClick={handleAddComment}>Agregar comentario</button>
 
       </div>
-
-      <table className="table-auto w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border border-gray-300 px-4 py-2">Título</th>
-            <th className="border border-gray-300 px-4 py-2">Contenido</th>
-            <th className="border border-gray-300 px-4 py-2">Estado</th>
-            <th className="border border-gray-300 px-4 py-2">Tipo</th>
-            <th className="border border-gray-300 px-4 py-2">Autor</th>
-            <th className="border border-gray-300 px-4 py-2">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {comments.map(comment => (
-            <tr key={comment.id}>
-              <td className="border border-gray-300 px-4 py-2">{comment.title}</td>
-              <td className="border border-gray-300 px-4 py-2">{comment.content}</td>
-              <td className="border border-gray-300 px-4 py-2">{comment.status}</td>
-              <td className="border border-gray-300 px-4 py-2">{comment.type}</td>
-              <td className="border border-gray-300 px-4 py-2">{comment.author}</td>
-              <td className="border border-gray-300 px-4 py-2">
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => handleEditComment(comment)}
-                    className="text-yellow-500 hover:text-yellow-700"
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteComment(comment.id)} 
-                    className="text-red-500 hover:text-red-700"
-                  >
-                    <FaTrash />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 };

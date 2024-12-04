@@ -25,8 +25,8 @@ const UsersSection = () => {
   const handleCreateUser = async () => {
     try {
       const response = await api.post('/users', newUser);
-      setUsers([...users, response.data]); // Add new user to state
-      setNewUser({ name: '', email: '' }); // Reset input fields
+      setUsers([...users, response.data]);
+      setNewUser({ name: '', email: '' }); 
     } catch (error) {
       console.error('Error creating user', error);
     }

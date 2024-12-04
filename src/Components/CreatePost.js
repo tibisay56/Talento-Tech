@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../Services/api';
+import '../Posts.css'
 
 const CreatePost = () => {
   const [newPost, setNewPost] = useState({ title: '', content: '', status: '', type: '', author: '' });
@@ -16,41 +17,47 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Crear Nuevo Post</h2>
+    <div className="createpost-section">
+      <h2>Crear Nuevo Post</h2>
       <input
         type="text"
         placeholder="Título"
         value={newPost.title}
         onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-        className="block border mb-2 p-2 w-full"
       />
       <textarea
         placeholder="Contenido"
         value={newPost.content}
         onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-        className="block border mb-2 p-2 w-full"
       />
-      <input
-        type="text"
-        placeholder="Estado"
+      <select
         value={newPost.status}
         onChange={(e) => setNewPost({ ...newPost, status: e.target.value })}
         className="block border mb-2 p-2 w-full"
-      />
-      <input
-        type="text"
-        placeholder="Tipo"
-        value={newPost.type}
-        onChange={(e) => setNewPost({ ...newPost, type: e.target.value })}
-        className="block border mb-2 p-2 w-full"
-      />
+      >
+        <option value="">Select a status</option>
+        <option value="ideas">Ideas</option>
+        <option value="stories">Stories</option>
+        <option value="investment">Investment</option>
+        <option value="advice">Advice</option>
+        <option value="resources">Resources</option>
+        <option value="others">Others</option>
+      </select>
+      <select
+          value={newPost.type}
+          onChange={(e) => setNewPost({ ...newPost, type: e.target.value })}
+          className="block border mb-2 p-2 w-full"
+        >
+          <option value="">Select a type</option>
+          <option value="published">Published</option>
+          <option value="pending">Pending</option>
+          <option value="rejected">Rejected</option>
+        </select>
       <input
         type="text"
         placeholder="Autor"
         value={newPost.author}
         onChange={(e) => setNewPost({ ...newPost, author: e.target.value })}
-        className="block border mb-2 p-2 w-full"
       />
       <div className="flex space-x-4">
         <button onClick={handleCreatePost} className="bg-blue-600 text-white px-4 py-2 rounded">
@@ -60,9 +67,10 @@ const CreatePost = () => {
         <button onClick={() => navigate('/dashboard/posts')} className="bg-gray-300 text-white px-4 py-2 rounded">
             Cancelar
         </button>
-        </div>
+      </div>
     </div>
   );
 };
 
 export default CreatePost;
+
