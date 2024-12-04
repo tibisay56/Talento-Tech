@@ -8,6 +8,7 @@ import RolesSection from './RolesSection';
 import Navbar from './Navbar';
 import CreatePost from './CreatePost';
 import CreateComment from './CreateComment';
+import CreateUser from './CreateUser';
 import '../styles.css';
 
 const Dashboard = () => {
@@ -25,6 +26,7 @@ const Dashboard = () => {
             <Route path="comments/create" element={<CreateComment />} />
             <Route path="comments" element={<CommentsSection />} />
             <Route path="users" element={<UsersSection />} />
+            <Route path="users/create" element={<CreateUser />} />
             <Route path="roles" element={<RolesSection />} />
           </Routes>
 
