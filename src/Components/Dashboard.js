@@ -6,15 +6,16 @@ import CommentsSection from './CommentsSection';
 import UsersSection from './UsersSection';
 import RolesSection from './RolesSection';
 import Navbar from './Navbar';
+import '../styles.css';
 
 const Dashboard = () => {
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="dashboard-container">
         
       <Navbar />
       <Sidebar />
 
-      <div className="flex-1 p-6">
+      <div className="content">
         <h1 className="text-4xl font-bold text-blue-600 mb-8">¡Bienvenido al Dashboard!</h1>
         
         <Routes>
