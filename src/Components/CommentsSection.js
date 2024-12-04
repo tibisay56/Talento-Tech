@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Comentarios.css'; // Asegúrate de importar el archivo CSS
+import '../Comentarios.css'
 
 const CommentSection = ({ postId }) => {
   const [comments, setComments] = useState([]);
@@ -35,24 +35,24 @@ const CommentSection = ({ postId }) => {
   };
 
   return (
-    <div className="comment-section">
+    <div className='comment-section'>
       <h2>Comentarios</h2>
       <div>
         {comments.length === 0 ? (
           <p>No hay comentarios aún.</p>
         ) : (
-          <ul className="comment-list">
+          <ul className='comment-list'>
             {comments.map((comment) => (
               <li key={comment.id}>
-                <span className="comment-author">{comment.author}:</span> 
-                <span className="comment-text">{comment.text}</span>
+                <span className='comment-author'>{comment.author}</span>
+                <span className='comment-text'>{comment.text}</span>
               </li>
             ))}
           </ul>
         )}
       </div>
       
-      <div className="comment-input">
+      <div className='comment-input'>
         <textarea 
           value={newComment}
           onChange={handleInputChange}
