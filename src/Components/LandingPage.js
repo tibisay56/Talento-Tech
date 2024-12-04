@@ -4,12 +4,13 @@ import Navbar from './Navbar';
 const LandingPage = () => {
   return (
     <div className="bg-gray-50 font-sans leading-normal tracking-normal">
-    
+
       <Navbar />
       
+      {/* Sección principal (hero section) */}
       <section className="bg-blue-600 text-white text-center py-20">
         <h1 className="text-4xl font-bold mb-4">Emprende tu Futuro</h1>
-        <p className="text-xl mb-8">Plataforma para emprendedores, conecta, comparte y crece.</p>
+        <p className="text-xl mb-8 max-w-3xl mx-auto">Plataforma para emprendedores, conecta, comparte y crece.</p>
         <a
           href="/dashboard"
           className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition"
@@ -18,9 +19,10 @@ const LandingPage = () => {
         </a>
       </section>
 
+      {/* Sección de Servicios */}
       <section id="services" className="py-20 bg-white text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-12">Nuestros Servicios</h2>
-        <div className="flex justify-center gap-12">
+        <div className="flex justify-center gap-12 flex-wrap">
           <div className="bg-gray-100 p-8 rounded-lg shadow-md w-80">
             <h3 className="text-2xl font-semibold text-blue-600 mb-4">Mentoría</h3>
             <p className="text-gray-600">Recibe asesoría de expertos para hacer crecer tu emprendimiento.</p>
@@ -36,9 +38,10 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Sección de testimonios */}
       <section className="py-20 bg-blue-50">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">Lo que Dicen Nuestros Emprendedores</h2>
-        <div className="flex justify-center gap-12">
+        <div className="flex justify-center gap-12 flex-wrap">
           <div className="bg-white p-8 rounded-lg shadow-md w-80">
             <p className="text-gray-600 mb-4">"Una plataforma increíble, me ha ayudado a expandir mi negocio y conocer nuevas oportunidades."</p>
             <h4 className="font-semibold text-gray-800">Juan Pérez</h4>
@@ -52,6 +55,7 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Sección de llamada a la acción */}
       <section className="bg-blue-600 text-white text-center py-20">
         <h2 className="text-3xl font-bold mb-4">¿Estás Listo para Emprender?</h2>
         <p className="text-xl mb-8">Únete a nosotros y comienza a construir tu futuro hoy.</p>
@@ -63,6 +67,7 @@ const LandingPage = () => {
         </a>
       </section>
 
+      {/* Footer */}
       <footer className="bg-gray-800 text-white text-center py-6">
         <p>&copy; 2024 EmprendeTuFuturo. Todos los derechos reservados.</p>
       </footer>

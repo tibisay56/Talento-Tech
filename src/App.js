@@ -4,6 +4,7 @@ import LandingPage from './Components/LandingPage';
 import LoginPage from './Components/LoginPage';
 import Dashboard from './Components/Dashboard';
 import RegisterPage from './Components/RegisterPage';
+import './App.css';
 
 const App = () => {
   return (
