@@ -52,9 +52,15 @@ const CreatePost = () => {
         onChange={(e) => setNewPost({ ...newPost, author: e.target.value })}
         className="block border mb-2 p-2 w-full"
       />
-      <button onClick={handleCreatePost} className="bg-blue-600 text-white px-4 py-2 rounded">
-        Crear Post
-      </button>
+      <div className="flex space-x-4">
+        <button onClick={handleCreatePost} className="bg-blue-600 text-white px-4 py-2 rounded">
+            Crear Post
+        </button>
+        
+        <button onClick={() => navigate('/dashboard/posts')} className="bg-gray-300 text-white px-4 py-2 rounded">
+            Cancelar
+        </button>
+        </div>
     </div>
   );
 };

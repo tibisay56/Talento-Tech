@@ -1,37 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Comentarios.css'
+import { useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa'; 
+import api from '../Services/api';
 
-const CommentSection = ({ postId }) => {
+const CommentSection = () => {
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('');
+  const [editComment, setEditComment] = useState(null);
+  const navigate = useNavigate(); 
 
-  // Cargar los comentarios de la API
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/comments/post/${postId}`)
-      .then((response) => {
+    const fetchComments = async () => {
+      try {
+        const response = await api.get('/comments');
         setComments(response.data);
-      })
-      .catch((error) => {
-        console.error("Hubo un error al cargar los comentarios:", error);
-      });
-  }, [postId]);
+      } catch (error) {
+        console.error('Error fetching comments', error);
+      }
+    };
+    fetchComments();
+  }, []);
 
-  // Función para manejar la creación de un nuevo comentario
-  const handleAddComment = () => {
-    axios.post(`http://localhost:8080/api/comments/${postId}`, { text: newComment, author: 'Usuario' })
-      .then((response) => {
-        setComments([...comments, response.data]);  // Agregar el nuevo comentario a la lista
-        setNewComment('');  // Limpiar el campo de entrada
-      })
-      .catch((error) => {
-        console.error("Hubo un error al agregar el comentario:", error);
-      });
+  // Handlers
+  const handleCreateRedirect = () => {
+    navigate('/dashboard/comments/create');
   };
 
-  // Función para manejar el cambio en el campo de entrada
-  const handleInputChange = (event) => {
-    setNewComment(event.target.value);
+  const handleEditComment = (comment) => {
+    setEditComment(comment); 
+  };
+
+  const handleDeleteComment = async (commentId) => {  
+    try {
+      await api.delete(`/comments/${commentId}`);
+      setComments(comments.filter(comment => comment.id !== commentId));
+    } catch (error) {
+      console.error('Error deleting comment', error);
+    }
   };
 
   return (
@@ -59,9 +65,52 @@ const CommentSection = ({ postId }) => {
           placeholder="Escribe tu comentario"
         />
         <button onClick={handleAddComment}>Agregar comentario</button>
+
       </div>
-    </div>
+
+      <table className="table-auto w-full border-collapse border border-gray-300">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border border-gray-300 px-4 py-2">Título</th>
+            <th className="border border-gray-300 px-4 py-2">Contenido</th>
+            <th className="border border-gray-300 px-4 py-2">Estado</th>
+            <th className="border border-gray-300 px-4 py-2">Tipo</th>
+            <th className="border border-gray-300 px-4 py-2">Autor</th>
+            <th className="border border-gray-300 px-4 py-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {comments.map(comment => (
+            <tr key={comment.id}>
+              <td className="border border-gray-300 px-4 py-2">{comment.title}</td>
+              <td className="border border-gray-300 px-4 py-2">{comment.content}</td>
+              <td className="border border-gray-300 px-4 py-2">{comment.status}</td>
+              <td className="border border-gray-300 px-4 py-2">{comment.type}</td>
+              <td className="border border-gray-300 px-4 py-2">{comment.author}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => handleEditComment(comment)}
+                    className="text-yellow-500 hover:text-yellow-700"
+                  >
+                    <FaEdit />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteComment(comment.id)} 
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
   );
 };
 
 export default CommentSection;
+
+
