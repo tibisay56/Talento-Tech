@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa'; // Íconos
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa'; 
 import api from '../Services/api';
 import '../styles.css';
 
