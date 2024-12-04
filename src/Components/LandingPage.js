@@ -9,6 +9,11 @@ const LandingPage = () => {
       
       {/* Sección principal (hero section) */}
       <section className="bg-blue-600 text-white text-center py-20">
+      <img 
+          src="/emprendedores.jpg" 
+          alt="Emprendedores" 
+          className="mx-auto mb-8 w-full h-64 object-contain" 
+        />
         <h1 className="text-4xl font-bold mb-4">Emprende tu Futuro</h1>
         <p className="text-xl mb-8 max-w-3xl mx-auto">Plataforma para emprendedores, conecta, comparte y crece.</p>
         <a
